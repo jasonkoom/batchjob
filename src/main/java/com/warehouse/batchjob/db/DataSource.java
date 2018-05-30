@@ -4,7 +4,6 @@ import com.warehouse.batchjob.context.PropName;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
 import java.sql.*;
-
 public class DataSource {
     private String DATABASE_DRIVER;
     private String DATABASE_URL;

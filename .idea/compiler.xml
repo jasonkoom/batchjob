@@ -9,5 +9,8 @@
         <module name="batchjob" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="batchjob" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
