@@ -18,7 +18,6 @@ public class DataSource {
         DATABASE_USERNAME = GlobalContext.getInstance().getStringValue(PropName.Database.USERNAME);
         DATABASE_PASSWORD = GlobalContext.getInstance().getStringValue(PropName.Database.PASSWORD);
 
-
         dataSource = new ComboPooledDataSource();
         try {
             dataSource.setDriverClass(DATABASE_DRIVER);

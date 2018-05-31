@@ -23,7 +23,7 @@ public class OperDb {
             while (rs.next()) {
                 Map<String,Object> rowData = new HashMap<String,Object>();
                 for (int i = 1; i <= columnCount; i++) {
-                    rowData.put(md.getColumnName(i), rs.getObject(i));
+                    rowData.put(md.getColumnName(i).toUpperCase(), rs.getObject(i));
                 }
                 list.add(rowData);
 

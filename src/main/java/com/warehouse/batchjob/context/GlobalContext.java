@@ -11,6 +11,7 @@ public class GlobalContext {
                 InputStream is =this.getClass().getClassLoader().getResourceAsStream(PROPERTIES_NAME);
                 props.clear();
                 props.load(is);
+
             }catch (IOException e){
                 throw new RuntimeException(e);
             }
