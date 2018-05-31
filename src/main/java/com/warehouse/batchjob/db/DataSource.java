@@ -30,8 +30,27 @@ public class DataSource {
         String testSql = "select 1";
         dataSource.setPreferredTestQuery(testSql);
     }
+    public  Connection getConnection(String DRIVER,String URL,String USERNAME,String PASSWORD ){
+        dataSource = new ComboPooledDataSource();
+        try {
+            dataSource.setDriverClass(DRIVER);
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
+        dataSource.setJdbcUrl(URL);
+        dataSource.setUser(USERNAME);
+        dataSource.setPassword(PASSWORD);
+        String testSql = "select 1";
+        dataSource.setPreferredTestQuery(testSql);
+        try{
+            return dataSource.getConnection();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     private static DataSource instance = new DataSource();
+
     public static DataSource getInstance() {
         return instance;
     }

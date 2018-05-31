@@ -11,9 +11,8 @@ public class OperDb {
         return instance;
     }
     //返回记录集
-    public List<Map<String, Object>> GetResult(String strsql) {
+    public List<Map<String, Object>> GetResult(Connection conn,String strsql) {
         List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-        Connection conn = DataSource.getInstance().getConnection();
         try {
             PreparedStatement ps =  conn.prepareStatement(strsql);
             ResultSet rs = ps.executeQuery();
@@ -40,23 +39,31 @@ public class OperDb {
         }
     }
     //执行语句
-    public void ExecuteSql(String strsql){
-        Connection conn = DataSource.getInstance().getConnection();
+    public void ExecuteSql(Connection conn,String strsql){
         try {
-            conn.setAutoCommit(false);
+            //conn.setAutoCommit(false);
             PreparedStatement ps =  conn.prepareStatement(strsql);
             Boolean rs = ps.execute();
-            conn.commit();
+            //conn.commit();
         }catch (SQLException e){
             throw new RuntimeException(e);
-        }finally {
-            try{
-                conn.close();
-            }catch (SQLException e){
-                throw new RuntimeException(e);
-            }
-
         }
+    }
+    // 执行存过
+    // String sql = "{call validateSelect('"+userName+"','"+passWord+"')}";
+    public void ExecuteProcedure(Connection conn,String strsql,String etl_dt){
+        try{
+            CallableStatement  cstmt  =  conn.prepareCall(strsql);
+            cstmt.setString(1,etl_dt);
+            cstmt.registerOutParameter(2, Types.CHAR);
+            cstmt.registerOutParameter(3, Types.CHAR);
+            cstmt.executeQuery();
+
+        }catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

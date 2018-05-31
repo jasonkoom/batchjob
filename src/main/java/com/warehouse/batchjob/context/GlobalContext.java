@@ -2,6 +2,8 @@ package com.warehouse.batchjob.context;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class GlobalContext {
     private static final String PROPERTIES_NAME = "config.properties";
@@ -56,4 +58,15 @@ public class GlobalContext {
         } else
             return false;
     }
+    // etl_dt = 20180531 return = 2018-0-531
+    public String getFormatDay(String etl_dt){
+        SimpleDateFormat sd_date = new SimpleDateFormat("yyyymmdd");
+        SimpleDateFormat sd_str = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            return sd_str.format((sd_date.parse(etl_dt)));
+        }catch (ParseException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
